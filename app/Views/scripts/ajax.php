@@ -57,7 +57,7 @@
                 enabled: false // Disable accessibility module
             },
             title: {
-                text: 'Pie Chart'
+                text: 'Pie'
             },
             plotOptions: {
                 pie: {
