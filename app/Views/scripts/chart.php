@@ -60,27 +60,28 @@
     }
 
     function drawChart(weeks, lossdata) {
-        const lineOptions = {
+        const stackedAreaOptions = {
             chart: {
-                type: 'line',
-                renderTo: 'lineChart', // Specify the chart container ID
+                type: 'area',
+                renderTo: 'stackedAreaChart', // Specify the chart container ID
                 backgroundColor: 'transparent' // Set the background color to transparent
             },
             title: {
-                text: 'Line'
+                text: 'Stacked Area Chart'
             },
             xAxis: {
                 categories: weeks
             },
             yAxis: {
                 title: {
-                    text: 'Loss Data' // Customize the y-axis label as needed
+                    text: 'Loss Data'
                 },
-                min: 0 // Ensure the y-axis starts from zero
+                min: 0
             },
             plotOptions: {
-                line: {
-                    lineWidth: 2,
+                area: {
+                    stacking: 'normal', // Set stacking to 'normal' for a stacked area chart
+                    lineWidth: 0, // No border lines between areas
                     marker: {
                         enabled: false // Disable markers on data points
                     }
@@ -100,12 +101,12 @@
                 color: 'rgb(255,255,51)'
             }],
             credits: {
-                enabled: false // Hide the Highcharts logo and link
+                enabled: false
             }
         };
 
         // Create the Highcharts chart
-        new Highcharts.Chart(lineOptions);
+        new Highcharts.Chart(stackedAreaOptions);
     }
 </script>
 

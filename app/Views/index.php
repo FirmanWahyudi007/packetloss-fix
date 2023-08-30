@@ -34,7 +34,7 @@
                 <div class="col-sm-4 mb-3 mb-sm-0">
                     <div class="card">
                         <div class="card-body">
-                            <div id="lineChart"></div>
+                            <div id="stackedAreaChart"></div>
                         </div>
                     </div>
                 </div>
