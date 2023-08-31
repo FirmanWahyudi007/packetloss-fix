@@ -39,4 +39,13 @@ class Home extends BaseController
 
         return response()->setJson($data);
     }
+
+    public function getDatabyWeekGroup($weekval = null)
+    {
+        $model = new DashboardModel();
+        $week = $model->select('week as week')->orderBy('week', 'desc')->groupBy('week')->find();
+        $weekval = $weekval ?? $week[0]['week'];
+        $data['weeksData'] = $model->getChartData($weekval);
+        return response()->setJson($data);
+    }
 }

@@ -20,8 +20,8 @@ class DashboardModel extends Model
     public function getRegency()
     {
         $query = $this->select('kabupaten, COUNT(*) as count')
-                    ->groupBy('kabupaten')
-                    ->findAll();
+            ->groupBy('kabupaten')
+            ->findAll();
 
         $regencyCounts = [];
         foreach ($query as $row) {
@@ -29,5 +29,17 @@ class DashboardModel extends Model
         }
 
         return $regencyCounts;
+    }
+
+    public function getChartData($selectedWeek)
+    {
+        // SQL query to count "SPIKE" and "CLEAR" statuses grouped by "nop"
+        $query = $this->select('nop, SUM(CASE WHEN pl_status = "SPIKE" THEN 1 ELSE 0 END) AS spike_count, SUM(CASE WHEN pl_status = "CLEAR" THEN 1 ELSE 0 END) AS clear_count')
+            ->where('week', $selectedWeek) // Replace 'week' with your actual column name
+            ->groupBy('nop')
+            ->orderBy('nop', 'asc')
+            ->get();
+
+        return $query->getResult('array'); // Return the query result as an array
     }
 }

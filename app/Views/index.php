@@ -63,16 +63,14 @@
 
         <div class="row mt-4">
             <!-- Elemen Canvas untuk Line Chart (sebelah kiri) -->
-            <!-- <div class="col-sm-4 mb-3 mb-sm-0">
+            <div class="col-sm-4 mb-3 mb-sm-0">
                 <div class="card">
                     <div class="card-body">
-                        <div style="display: inline-block; height:auto ;width: auto;">
-                            <canvas id="areaChart" width="auto" height="auto"></canvas>
+                        <div id="columnNopChart">
                         </div>
                     </div>
-
                 </div>
-            </div> -->
+            </div>
             <!-- Elemen Canvas untuk Donat Chart (sebelah tengah) -->
 
             <!-- <div class="col-sm-4">

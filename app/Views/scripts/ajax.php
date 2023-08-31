@@ -20,6 +20,19 @@
             }
         });
 
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8080/Home/getDatabyWeekGroup`,
+            success: function(response) {
+                // Handle the response from the server (if needed)
+                const weeksData = response.weeksData;
+                createColumnChart(weeksData);
+            },
+            error: function() {
+                console.error("An error occurred while making the AJAX request.");
+            }
+        });
+
         $("select[name='week']").change(function() {
             const selectedValue = $(this).val();
             console.log(selectedValue);
@@ -37,6 +50,18 @@
 
                     // Call the function to update the charts with new data
                     updateCharts(clearData, spikeData, consecutiveData);
+                },
+                error: function() {
+                    console.error("An error occurred while making the AJAX request.");
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: `http://localhost:8080/Home/getDatabyWeekGroup/${selectedValue}`,
+                success: function(response) {
+                    // Handle the response from the server (if needed)
+                    const weeksData = response.weeksData;
+                    createColumnChart(weeksData);
                 },
                 error: function() {
                     console.error("An error occurred while making the AJAX request.");
@@ -128,10 +153,48 @@
                 enabled: false
             }
         });
+    }
 
-
-
-
-
+    function createColumnChart(data) {
+        data.forEach(item => {
+            item.spike_count = parseInt(item.spike_count);
+            item.clear_count = parseInt(item.clear_count);
+        });
+        Highcharts.chart('columnNopChart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Column Chart'
+            },
+            xAxis: {
+                categories: data.map(item => item.nop),
+                crosshair: true
+            },
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                min: 0
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'SPIKE',
+                data: data.map(item => item.spike_count),
+                color: 'rgb(255, 255, 51)' // Yellow for SPIKE
+            }, {
+                name: 'CLEAR',
+                data: data.map(item => item.clear_count),
+                color: 'rgb(0, 204, 102)' // Green for CLEAR
+            }],
+            credits: {
+                enabled: false
+            }
+        });
     }
 </script>
